@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+mongoose = require('mongoose');
 const config = require('config');
 const db = config.get('mongoURI'); //defined in default.json
 
