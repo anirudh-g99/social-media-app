@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../../models/User');
 const config = require('config');
+
 // @route GET api/users
 // @desc Test route
 // @access Public
