@@ -17,7 +17,9 @@ router.get('/me', auth, async (req, res) => {
 			user: req.user.id
 		}).populate('user', ['name', 'avatar']);
 		if (!profile) {
-			return res.status(400).json({ msg: 'There is no profile for this user' });
+			return res
+				.status(400)
+				.json({ msg: 'There is no profile for this user' });
 		}
 		res.json(profile);
 	} catch (err) {
@@ -63,10 +65,13 @@ router.post(
 		if (company) profileFields.company = company;
 		if (website) profileFields.website = website;
 		if (bio) profileFields.bio = bio;
+		if (location) profileFields.location = location;
 		if (status) profileFields.status = status;
 		if (githubusername) profileFields.githubusername = githubusername;
 		if (skills) {
-			profileFields.skills = skills.split(',').map((skill) => skill.trim());
+			profileFields.skills = skills
+				.split(',')
+				.map((skill) => skill.trim());
 		}
 
 		// Build social object
@@ -103,7 +108,10 @@ router.post(
 // @access Public
 router.get('/', async (req, res) => {
 	try {
-		const profiles = await Profile.find().populate('user', ['name', 'avatar']);
+		const profiles = await Profile.find().populate('user', [
+			'name',
+			'avatar'
+		]);
 		res.json(profiles);
 	} catch (err) {
 		console.error(err.message);
