@@ -12,7 +12,7 @@ import {
 } from './types';
 
 // Get posts
-export const getPosts = () => async (dspatch) => {
+export const getPosts = () => async (dispatch) => {
 	try {
 		const res = await axios.get('/api/posts');
 		dispatch({
