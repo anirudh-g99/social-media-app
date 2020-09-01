@@ -39,7 +39,7 @@ router.post(
 
 // @route GET api/posts
 // @desc Get all posts
-// @access Public
+// @access Private
 router.get('/', auth, async (req, res) => {
 	try {
 		const posts = await Post.find().sort({ date: -1 });
@@ -52,7 +52,7 @@ router.get('/', auth, async (req, res) => {
 
 // @route GET api/posts/:id
 // @desc Get post by ID
-// @access Public
+// @access Private
 router.get('/:id', [auth, checkObjectId('id')], async (req, res) => {
 	try {
 		const posts = await Post.findById(req.params.id);
