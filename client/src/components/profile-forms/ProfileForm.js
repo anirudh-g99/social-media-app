@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createProfile, getCurrentProfile } from '../../actions/profile';
@@ -19,7 +19,7 @@ const initialState = {
 	instagram: ''
 };
 
-const CreateProfile = ({
+const ProfileForm = ({
 	profile: { profile, loading },
 	createProfile,
 	getCurrentProfile,
@@ -65,7 +65,7 @@ const CreateProfile = ({
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		createProfile(formData, history);
+		createProfile(formData, history, profile ? true : false);
 	};
 
 	return (
@@ -87,8 +87,12 @@ const CreateProfile = ({
 							Senior Developer
 						</option>
 						<option value='Manager'>Manager</option>
-						<option value='Student'>Student</option>
-						<option value='Instructor'>Instructor/Teacher</option>
+						<option value='Student or Learning'>
+							Student or Learning
+						</option>
+						<option value='Instructor'>
+							Instructor or Teacher
+						</option>
 						<option value='Intern'>Intern</option>
 						<option value='Other'>Other</option>
 					</select>
@@ -249,7 +253,7 @@ const CreateProfile = ({
 	);
 };
 
-CreateProfile.propTypes = {
+ProfileForm.propTypes = {
 	createProfile: PropTypes.func.isRequired,
 	getCurrentProfile: PropTypes.func.isRequired,
 	profile: PropTypes.object.isRequired
@@ -260,5 +264,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
-	withRouter(CreateProfile)
+	ProfileForm
 );

@@ -1,30 +1,27 @@
-import React, { useEffect, Fragment } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import Spinner from '../layout/Spinner';
-import { getCurrentProfile, deleteAccount } from '../../actions/profile';
+import React, { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import DashboardActions from './DashboardActions';
 import Experience from './Experience';
 import Education from './Education';
+import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 
 const Dashboard = ({
 	getCurrentProfile,
 	deleteAccount,
 	auth: { user },
-	profile: { profile, loading }
+	profile: { profile }
 }) => {
 	useEffect(() => {
 		getCurrentProfile();
 	}, [getCurrentProfile]);
-	return loading && profile === null ? (
-		<Spinner />
-	) : (
+
+	return (
 		<Fragment>
 			<h1 className='large text-primary'>Dashboard</h1>
 			<p className='lead'>
-				<i className='fas fa-user'></i>
-				Welcome {user && user.name}
+				<i className='fas fa-user' /> Welcome {user && user.name}
 			</p>
 			{profile !== null ? (
 				<Fragment>
@@ -44,15 +41,18 @@ const Dashboard = ({
 				</Fragment>
 			) : (
 				<Fragment>
-					<p>You have not set up a profile.</p>
+					<p>
+						You have not yet setup a profile, please add some info
+					</p>
 					<Link to='/create-profile' className='btn btn-primary my-1'>
-						create profile
+						Create Profile
 					</Link>
 				</Fragment>
 			)}
 		</Fragment>
 	);
 };
+
 Dashboard.propTypes = {
 	getCurrentProfile: PropTypes.func.isRequired,
 	deleteAccount: PropTypes.func.isRequired,

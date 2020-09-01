@@ -4,8 +4,7 @@ import Register from '../auth/Register';
 import Login from '../auth/Login';
 import Alert from '../layout/Alert';
 import Dashboard from '../dashboard/Dashboard';
-import CreateProfile from '../profile-forms/CreateProfile';
-import EditProfile from '../profile-forms/EditProfile';
+import ProfileForm from '../profile-forms/ProfileForm';
 import AddExperience from '../profile-forms/AddExperience';
 import AddEducation from '../profile-forms/AddEducation';
 import Profiles from '../profiles/Profiles';
@@ -28,12 +27,12 @@ const Routes = (props) => {
 				<PrivateRoute
 					exact
 					path='/create-profile'
-					component={CreateProfile}
+					component={ProfileForm}
 				/>
 				<PrivateRoute
 					exact
 					path='/edit-profile'
-					component={EditProfile}
+					component={ProfileForm}
 				/>
 				<PrivateRoute
 					exact
