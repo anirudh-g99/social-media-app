@@ -40,7 +40,7 @@ router.post(
 // @route GET api/posts
 // @desc Get all posts
 // @access Public
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
 	try {
 		const posts = await Post.find().sort({ date: -1 });
 		res.json(posts);
@@ -53,7 +53,7 @@ router.get('/', async (req, res) => {
 // @route GET api/posts/:id
 // @desc Get post by ID
 // @access Public
-router.get('/:id', async (req, res) => {
+router.get('/:id', [auth, checkObjectId('id')], async (req, res) => {
 	try {
 		const posts = await Post.findById(req.params.id);
 		if (!posts) {
@@ -102,8 +102,8 @@ router.put('/like/:id', auth, async (req, res) => {
 		const post = await Post.findById(req.params.id);
 
 		if (
-			post.likes.filter((like) => like.user.toString() === req.user.id).length >
-			0
+			post.likes.filter((like) => like.user.toString() === req.user.id)
+				.length > 0
 		) {
 			return res.status(400).json({ msg: 'Post already liked' });
 		}
