@@ -1,0 +1,6 @@
+{
+	"mongoURI": "mongodb+srv://ag99:0104@cl01.o1gwj.mongodb.net/NetDB?retryWrites=true&w=majority",
+	"jwtSecret": "2X4jQliPAQDFGR4_",
+	"githubClientId": "3949664e6c1bf531c328",
+	"githubSecret": "a061e39b982fd5d8f4894bb73af041033e453e83"
+}
