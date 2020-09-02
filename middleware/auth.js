@@ -12,7 +12,13 @@ module.exports = function (req, res, next) {
 
 	// Verify token
 	try {
-		jwt.verify(token, config.get('jwtSecret'), (error, decoded) => {
+		var jwtSecret = '';
+		if (process.env.NODE_ENV !== 'production') {
+			jwtSecret = config.get('jwtSecret');
+		} else {
+			jwtSecret = process.env.jwtSecret;
+		}
+		jwt.verify(token, jwtSecret, (error, decoded) => {
 			if (error) {
 				return res.status(401).json({ msg: 'Token is not valid' });
 			} else {

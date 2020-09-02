@@ -36,6 +36,12 @@ router.post(
 		}
 
 		const { email, password } = req.body;
+		var jwtSecret = '';
+		if (process.env.NODE_ENV !== 'production') {
+			jwtSecret = config.get('jwtSecret');
+		} else {
+			jwtSecret = process.env.jwtSecret;
+		}
 
 		try {
 			let user = await User.findOne({ email });
@@ -62,7 +68,7 @@ router.post(
 
 			jwt.sign(
 				payload,
-				config.get('jwtSecret'),
+				jwtSecret,
 				{ expiresIn: 36000 }, // TODO: change to 3600
 				(err, token) => {
 					if (err) throw err;

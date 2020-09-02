@@ -303,12 +303,17 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
 // @access Public
 router.get('/github/:username', (req, res) => {
 	try {
+		var githubClientId = '';
+		var githubSecret = '';
+		if (process.env.NODE_ENV !== 'production') {
+			githubClientId = config.get('githubClientId');
+			githubSecret = config.get('githubSecret');
+		} else {
+			githubClientId = process.env.githubClientId;
+			githubSecret = process.env.githubSecret;
+		}
 		const options = {
-			uri: `https://api.github.com/users/${
-				req.params.username
-			}/repos?per_page=5&sort=created:asc&client_id=${config.get(
-				'githubClientId'
-			)}&client_secret=${config.get('githubSecret')}`,
+			uri: `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc&client_id=${githubClientId}&client_secret=${githubSecret}`,
 			method: 'GET',
 			headers: { 'user-agent': 'nodejs' }
 		};
